@@ -1,0 +1,7 @@
+@use '../../styles/variables' as var;
+
+.body {
+  color: var.$color-white;
+  line-height: 1.6;
+  margin: 0;
+}
