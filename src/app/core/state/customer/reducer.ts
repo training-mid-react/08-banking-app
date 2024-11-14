@@ -1,5 +1,3 @@
-// customerReducer.ts
-
 import { customerActions } from './actions';
 import { CustomerCreateRequest, CustomerDeleteRequest, CustomerGetRequest, CustomerRequest } from '@core/interfaces/customer';
 

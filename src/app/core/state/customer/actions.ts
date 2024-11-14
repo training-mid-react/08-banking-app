@@ -1,5 +1,3 @@
-// customerActions.ts
-
 import { CustomerCreateRequest, CustomerDeleteRequest, CustomerGetRequest, CustomerRequest } from "@core/interfaces/customer";
 
 export const customerActions = {

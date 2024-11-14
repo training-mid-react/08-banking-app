@@ -7,13 +7,13 @@ export const Guard: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   useEffect(() => {
     if (!state.isAuthenticated) {
-      navigate('/'); // Redirige al login si no está autenticado
+      navigate('/');
     }
   }, [state.isAuthenticated, navigate]);
 
   if (state.isAuthenticated) {
-    return <>{children}</>; // Si está autenticado, muestra el contenido
+    return <>{children}</>;
   }
 
-  return <div>Loading...</div>; // O puedes mostrar un loader si aún está verificando el estado
+  return <div>Loading...</div>;
 };
