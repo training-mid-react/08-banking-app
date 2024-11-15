@@ -1,0 +1,55 @@
+$primary-color: #5e9fff;
+$secondary-color: #4a8fd0;
+$disabled-color: #ddd;
+$white: white;
+$loading-color: rgba(141, 217, 223, 0.726);
+
+.actionContainer__button {
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: $primary-color;
+  color: $white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  &--disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    background-color: $secondary-color;
+  }
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &:disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+  }
+
+  &-spinner {
+    animation: rotate 1s linear infinite;
+    width: 24px;
+    height: 24px;
+    stroke: $white;
+    stroke-width: 2;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
