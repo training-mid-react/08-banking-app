@@ -1,0 +1,203 @@
+@use './../../styles/constants.scss' as constants;
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: constants.$background-color;
+  color: #333;
+}
+
+.layout-main {
+  display: flex;
+  height: 100vh;
+}
+
+.layout-main__sidebar {
+  width: 250px;
+  background-color: constants.$sidebar-bg;
+  color: constants.$white;
+}
+
+.layout-main__content {
+  flex: 1;
+  background-color: constants.$white;
+  padding: 0%;
+}
+
+.home {
+  display: flex;
+  height: 100%;
+}
+
+.home__content {
+  flex: 1;
+  padding: 20px;
+  padding-top: 0%;
+  background-color: constants.$white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: constants.$secondary-color;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: constants.$sidebar-bg;
+  color: constants.$white;
+  padding: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Logo */
+.sidebar__logo {
+  display: flex;
+  justify-content: start;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.sidebar__logo-img {
+  width: 50px;
+  height: auto;
+}
+
+.sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.sidebar__item {
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: constants.$white;
+  transition: background-color 0.3s ease, font-weight 0.3s ease, transform 0.3s ease, border-left 0.3s ease;
+
+  &:hover {
+    background-color: #405a77;
+  }
+}
+
+.sidebar__item.active {
+  background-color: #1f2c41;
+  font-weight: bold;
+  border-left: 5px solid constants.$primary-color;
+}
+
+.sidebar__spacer {
+  flex: 1;
+}
+
+.sidebar__logout-btn {
+  background-color: constants.$error-color;
+  color: constants.$white;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken(constants.$error-color, 10%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar__logo-img {
+    width: 120px;
+  }
+}
+
+.button {
+  background-color: constants.$primary-color;
+  color: constants.$white;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: constants.$secondary-color;
+  }
+
+  &:disabled {
+    background-color: constants.$gray-light;
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid constants.$gray-light;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: constants.$primary-color;
+  }
+
+  &--error {
+    border-color: constants.$error-color;
+  }
+
+  &::placeholder {
+    color: constants.$gray-light;
+  }
+}
+
+.error-message {
+  color: constants.$error-color;
+  font-size: 0.875rem;
+  margin-top: 10px;
+}
+
+.link {
+  text-align: center;
+  text-decoration: none;
+  color: #524747;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: constants.$primary-color;
+    text-decoration: underline;
+  }
+}
+
+.card {
+  background-color: constants.$white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
