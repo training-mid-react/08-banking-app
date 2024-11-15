@@ -1,0 +1,21 @@
+@use '../../styles/variables' as var;
+
+.body {
+  color: var.$color-white;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.error-message {
+  color: var.$color-error-red;
+  font-size: var.$font-size-small;
+  margin-top: 1rem;
+}
+
+.body-primary {
+  color: var.$color-gray;
+}
+
+.body-secondary {
+  color: var.$color-white;
+}

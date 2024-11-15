@@ -1,0 +1,15 @@
+.transactions-layout-container {
+    &_cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding: 2rem;
+
+        @media (max-width: 768px) {
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+}

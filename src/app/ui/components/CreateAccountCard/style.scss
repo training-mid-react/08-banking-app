@@ -1,0 +1,36 @@
+@use '../../styles/variables' as var;
+@use '../../styles/mixins' as mix;
+
+.create-account-card {
+    gap: 20px;
+    @include mix.flex;
+
+    &_content {
+        @include mix.account-card-style;
+    }
+
+    &_title {
+        color: var.$color-gray;
+        font-weight: var.$font-weight-light;
+        margin-bottom: 10px;
+    }
+
+    &_label {
+        color: var.$color-dark-blue;
+    }
+
+    &_new-content{
+        @include mix.account-card-style(center);
+    }
+
+    &_empty-title {
+        color: var.$color-light-gray;
+        margin-bottom: 10px;
+    }
+
+    &_empty-description {
+        color: var.$color-light-gray;
+        font-weight: var.$font-weight-light;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,9 @@
+.account-layout-container {
+    &_children {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 2rem;
+        margin-top: 20px;
+    }
+}
