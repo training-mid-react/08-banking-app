@@ -1,14 +1,14 @@
-import { ILoginResponse } from "..";
+import { IGetAllCustomerAccountResponse, ILoginResponse } from "..";
 
 export interface IContext {
   state: IState;
   dispatch: React.Dispatch<IAction>;
-  balance: number;
+  balance?: number;
 }
 
 export interface IAction {
   type: string;
-  payload?: string | ILoginResponse | number;
+  payload?: string | ILoginResponse | number | IGetAllCustomerAccountResponse[];
 }
 
 // LOGIN
@@ -17,7 +17,8 @@ export interface ILoginState {
 }
 
 export interface IGlobalBalanceState {
-  balance?: number | null | string;
+  balance?: number | null;
+  accounts?: IGetAllCustomerAccountResponse[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

@@ -35,6 +35,8 @@ export interface IGetAllCustomerAccountResponse {
   accountId: string;
   encryptedNumber: string;
   amount: number;
+  // TODO: ver de borrar esto
+  username: string;
 }
 
 export interface IGetCustomerAccountResponse {

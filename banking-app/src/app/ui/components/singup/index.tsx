@@ -1,5 +1,4 @@
 import { useSignup } from "@core/hooks/signup/useSignup";
-import "./styles.scss";
 import { ROUTE_PATH } from "@core/constants";
 import { Toaster } from "react-hot-toast";
 
@@ -8,9 +7,13 @@ export const SignupForm = () => {
     useSignup();
 
   return (
-    <div className="signup">
-      <h2>Regístrate</h2>
-      <form id="register-form" onSubmit={handleSubmit(onSubmit)}>
+    <div>
+      <form
+        id="register-form"
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h2>Regístrate</h2>
         <label>
           Nombre:
           <input
@@ -90,18 +93,17 @@ export const SignupForm = () => {
         </label>
 
         <button type="submit" disabled={isLoading}>
-          Crear cuenta
+          Gestion de cuentas
         </button>
+        <div>
+          <p>
+            ¿Ya tienes cuenta?
+            <a href={ROUTE_PATH.LOGIN} id="login-link">
+              Inicia sesión aquí
+            </a>
+          </p>
+        </div>
       </form>
-
-      <div>
-        <p>
-          ¿Ya tienes cuenta?
-          <a href={ROUTE_PATH.LOGIN} id="login-link">
-            Inicia sesión aquí
-          </a>
-        </p>
-      </div>
       <Toaster />
     </div>
   );

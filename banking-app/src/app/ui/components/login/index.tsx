@@ -1,19 +1,20 @@
 import { ROUTE_PATH } from "@core/constants";
-import "./styles.scss";
 import { useLogin } from "@core/hooks";
 import { ILoginResponse } from "@core/interfaces";
+import { Button } from "../button";
 
 export const Login = ({
   saveLoginData,
 }: {
   saveLoginData: (loginData: ILoginResponse) => void;
 }) => {
-  const { errors, onSubmit, register, handleSubmit } = useLogin(saveLoginData);
+  const { isLoading, errors, onSubmit, register, handleSubmit } =
+    useLogin(saveLoginData);
 
   return (
-    <div className="login">
-      <h2>Iniciar sesión</h2>
-      <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+    <div>
+      <form id="login-form" className="form" onSubmit={handleSubmit(onSubmit)}>
+        <h2>Iniciar sesión</h2>
         <label>
           Nombre de usuario:
           <input
@@ -44,14 +45,14 @@ export const Login = ({
           />
           {errors.password && <span>{errors.password.message}</span>}
         </label>
-        <button type="submit">Iniciar sesión</button>
+        <Button label="Iniciar sesión" isLoading={isLoading} />
+        <p>
+          ¿No tienes cuenta?
+          <a href={ROUTE_PATH.SIGNUP} id="register-link">
+            Regístrate aquí
+          </a>
+        </p>
       </form>
-      <p>
-        ¿No tienes cuenta?
-        <a href={ROUTE_PATH.SIGNUP} id="register-link">
-          Regístrate aquí
-        </a>
-      </p>
     </div>
   );
 };

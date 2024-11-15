@@ -1,46 +1,21 @@
-import { useMutation } from "@tanstack/react-query";
-import { atmWithdraw } from "@core/services";
-import toast, { Toaster } from "react-hot-toast";
-import { useForm } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
 import { decryptAES } from "@core/utils";
-import { useGetAccounts } from "@core/hooks";
+import { useWithdrawDashboard } from "@core/hooks";
 
 export const WithdrawDashboard = () => {
-  const { accounts } = useGetAccounts();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ amount: number; accountNumberToWithdraw: string }>();
-
-  const { mutate } = useMutation({
-    mutationFn: atmWithdraw,
-    onSuccess: (data) => {
-      if (data.dinBody) {
-        toast("¡Retiro realizado con éxito!");
-      } else {
-        toast(data.dinError.detail);
-      }
-    },
-    onError: () => toast("Ha ocurrido un error al realizar el retiro."),
-  });
-
-  const onSubmit = (data: {
-    amount: number;
-    accountNumberToWithdraw: string;
-  }) => {
-    mutate({
-      customerId: String(localStorage.getItem("customerId")),
-      amount: data.amount,
-      accountId: data.accountNumberToWithdraw,
-    });
-  };
+  const { accounts, register, handleSubmit, errors, onSubmit } =
+    useWithdrawDashboard();
 
   return (
     <div className="withdraw">
-      <h2>Realizar retiro</h2>
-      <form id="withdraw-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        id="withdraw-form"
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h2>Realizar retiro</h2>
         <div>
+          <label htmlFor="withdraw-amount">Monto:</label>
           <input
             type="number"
             id="withdraw-amount"
@@ -81,9 +56,9 @@ export const WithdrawDashboard = () => {
           </>
         </div>
 
+        <p>El retiro en cajero tiene un costo de $1 USD por transacción.</p>
         <button type="submit">Retirar</button>
       </form>
-      <p>El retiro en cajero tiene un costo de $1 USD por transacción.</p>
       <Toaster />
     </div>
   );

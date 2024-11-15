@@ -8,6 +8,8 @@ export interface ILoginRequest {
 export interface ILoginResponse {
   token: string | null;
   customerId: string | null;
+  // TODO: ver de hacer esto mejor
+  username?: string;
 }
 
 export interface IDinRequestLoginRequest {

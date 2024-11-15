@@ -1,9 +1,10 @@
 import { localStorageProperties } from "@core/constants";
-import { useGetAccounts } from "@core/hooks/accounts";
+import { useAccountContext } from "@core/state/context/account/AccountContext";
 import { createCustomerAccount } from "@core/services";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { ICreateCustomerAccountRequest } from "@core/interfaces";
 
 interface ICreateBankAccount {
   accountType: string;
@@ -11,15 +12,16 @@ interface ICreateBankAccount {
 }
 
 export const useCreateBankAccount = () => {
-  const { accounts } = useGetAccounts();
+  const { accounts, refetchAccounts } = useAccountContext();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ICreateBankAccount>();
 
-  const { mutate } = useMutation({
-    mutationFn: createCustomerAccount,
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: ICreateCustomerAccountRequest) =>
+      createCustomerAccount(data),
     onSuccess: (data) => {
       if (data.dinBody) {
         localStorage.setItem(
@@ -46,7 +48,15 @@ export const useCreateBankAccount = () => {
       ),
       amount: data.initialBalance,
     });
+    refetchAccounts();
   };
 
-  return { accounts, errors, handleSubmit, register, onSubmit };
+  return {
+    isLoading: isPending,
+    accounts,
+    errors,
+    handleSubmit,
+    register,
+    onSubmit,
+  };
 };

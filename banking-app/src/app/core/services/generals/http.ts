@@ -18,14 +18,6 @@ const dinHeader = {
   initializationVector: environment.initializationVector,
 };
 
-const headers = {
-  "Content-Type": "application/json",
-  Accept: "*/*",
-  Authorization: `Bearer ${
-    localStorage.getItem(localStorageProperties.token) as string
-  }`,
-};
-
 export const http = async (props: HTTPOptions) => {
   const { url, method, data, credentials = "include" } = props;
 
@@ -33,7 +25,13 @@ export const http = async (props: HTTPOptions) => {
     const response = await fetch(url, {
       method: method.toString(),
       credentials,
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${
+          localStorage.getItem(localStorageProperties.token) as string
+        }`,
+      },
       body: JSON.stringify({
         dinHeader,
         dinBody: data,

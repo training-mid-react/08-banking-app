@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { localStorageProperties } from "../../constants/localStoragesProperties";
 
 interface LoginFormData {
   username: string;
@@ -21,14 +22,20 @@ export const useLogin = (
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       if (data.dinBody) {
         toast("Exitoso.");
         // TODO: mejorar esto
-        localStorage.setItem("customerId", String(data?.dinBody?.customerId));
-        localStorage.setItem("token", String(data?.dinBody?.token));
+        localStorage.setItem(
+          localStorageProperties.customerId,
+          String(data?.dinBody?.customerId)
+        );
+        localStorage.setItem(
+          localStorageProperties.token,
+          String(data?.dinBody?.token)
+        );
 
         saveLoginData(data.dinBody);
         navigate(ROUTE_PATH.DASHBOARD);
@@ -44,8 +51,11 @@ export const useLogin = (
       username: data.username,
       encryptedPassword: encryptAES(data.password),
     });
-    localStorage.setItem("name", String(data.username));
+    localStorage.setItem(
+      localStorageProperties.username,
+      String(data.username)
+    );
   };
 
-  return { errors, onSubmit, register, handleSubmit };
+  return { isLoading: isPending, errors, onSubmit, register, handleSubmit };
 };

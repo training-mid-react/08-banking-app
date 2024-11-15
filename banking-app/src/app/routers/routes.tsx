@@ -3,12 +3,13 @@ import { SignupContainer } from "@containers/SignupContainer";
 import { LoginContainer } from "@containers/LoginContainer";
 import { AppContainer } from "@containers/AppContainer";
 import { ROUTE_PATH } from "@core/constants";
-import { DepositDashboard } from "@ui/components/depositDashboard/DepositDashboard";
+import { DepositDashboard } from "@ui/components/depositDashboard";
 import { WithdrawDashboard } from "@ui/components/withdrawDashboard";
-import { PurchaseDashboard } from "@ui/components/purchaseDashboard/PurchaseDashboard";
+import { PurchaseDashboard } from "@ui/components/purchaseDashboard";
 import { GuardSession } from "./guards";
 import { CreateBankAccount } from "@ui/components/account";
 import { DashboardContainer } from "@containers/DashboardContainer";
+import { AccountProvider } from "@core/state";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,9 @@ export const router = createBrowserRouter([
       <AppContainer
         children={
           <GuardSession>
-            <DashboardContainer />
+            <AccountProvider>
+              <DashboardContainer />
+            </AccountProvider>
           </GuardSession>
         }
       />
@@ -37,7 +40,9 @@ export const router = createBrowserRouter([
       <AppContainer
         children={
           <GuardSession>
-            <DepositDashboard />
+            <AccountProvider>
+              <DepositDashboard />
+            </AccountProvider>
           </GuardSession>
         }
       />
@@ -49,7 +54,9 @@ export const router = createBrowserRouter([
       <AppContainer
         children={
           <GuardSession>
-            <WithdrawDashboard />
+            <AccountProvider>
+              <WithdrawDashboard />
+            </AccountProvider>
           </GuardSession>
         }
       />
@@ -61,7 +68,9 @@ export const router = createBrowserRouter([
       <AppContainer
         children={
           <GuardSession>
-            <PurchaseDashboard />
+            <AccountProvider>
+              <PurchaseDashboard />
+            </AccountProvider>
           </GuardSession>
         }
       />
@@ -73,7 +82,9 @@ export const router = createBrowserRouter([
       <AppContainer
         children={
           <GuardSession>
-            <CreateBankAccount />
+            <AccountProvider>
+              <CreateBankAccount />
+            </AccountProvider>
           </GuardSession>
         }
       />

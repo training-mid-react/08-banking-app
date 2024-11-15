@@ -1,16 +1,27 @@
 import { useDeposit } from "@core/hooks";
 import { decryptAES } from "@core/utils";
 import { Toaster } from "react-hot-toast";
+import { Button } from "../button";
 
 export const DepositDashboard = () => {
-  const { accounts, errors, watch, handleSubmit, register, onSubmit } =
-    useDeposit();
+  const {
+    isLoading,
+    accounts,
+    errors,
+    isAccountSelected,
+    handleSubmit,
+    register,
+    onSubmit,
+  } = useDeposit();
 
-  const isAccountSelected = watch("depositSource") === "account";
   return (
     <div className="deposit">
-      <h2>Realizar depósito</h2>
-      <form id="deposit-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        id="deposit-form"
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h2>Realizar depósito</h2>
         <label htmlFor="deposit-source">
           Selecciona el origen del depósito:
         </label>
@@ -31,6 +42,7 @@ export const DepositDashboard = () => {
           </option>
         </select>
         {errors.depositSource && <span>{errors.depositSource.message}</span>}
+        <label htmlFor="deposit-amount">Monto:</label>
         <input
           type="number"
           id="deposit-amount"
@@ -46,7 +58,6 @@ export const DepositDashboard = () => {
           })}
         />
         {errors.amount && <span>{errors.amount.message}</span>}
-
         <div>
           <label htmlFor="accountId">Cuenta a depositar:</label>
           <select
@@ -68,7 +79,6 @@ export const DepositDashboard = () => {
             <span>{errors.accountNumberToDeposit.message}</span>
           )}
         </div>
-
         {isAccountSelected && (
           <>
             <label htmlFor="account-number-to-deposit">
@@ -94,10 +104,9 @@ export const DepositDashboard = () => {
             )}
           </>
         )}
-
-        <button type="submit">Depositar</button>
+        <Button label="Depositar" isLoading={isLoading} />
+        <p>Nota: El costo de la transacción se deducirá del saldo.</p>
       </form>
-      <p>Nota: El costo de la transacción se deducirá del saldo.</p>
       <Toaster />
     </div>
   );

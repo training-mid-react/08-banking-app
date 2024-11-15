@@ -1,10 +1,11 @@
 import { localStorageProperties } from "@core/constants";
-import { useGetAccounts } from "@core/hooks/accounts";
 import {
   IDepositToExternalAccountRequest,
   IUnidirectionalTransaction,
 } from "@core/interfaces";
 import { atmDeposit, branchDeposits, externalDeposits } from "@core/services";
+import { useAccountContext } from "@core/state";
+import { EDepositSource } from "@core/types";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ interface DepositFormData {
 }
 
 export const useDeposit = () => {
-  const { accounts } = useGetAccounts();
+  const { accounts, refetchAccounts } = useAccountContext();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,9 @@ export const useDeposit = () => {
     formState: { errors },
   } = useForm<DepositFormData>();
 
-  const { mutate: mutateBranchDeposits } = useMutation({
+  const isAccountSelected = watch("depositSource") === EDepositSource.ACCOUNT;
+
+  const { mutate: mutateBranchDeposits, isPending } = useMutation({
     mutationFn: async (data: IUnidirectionalTransaction) =>
       await branchDeposits(data),
     onSuccess: (data) => {
@@ -66,7 +69,7 @@ export const useDeposit = () => {
     );
 
     switch (data.depositSource) {
-      case "branch-deposit":
+      case EDepositSource.BRANCH:
         mutateBranchDeposits({
           customerId,
           accountId,
@@ -74,14 +77,14 @@ export const useDeposit = () => {
         });
 
         break;
-      case "atm":
+      case EDepositSource.ATM:
         mutateAtmDeposit({
           customerId,
           accountId,
           amount,
         });
         break;
-      case "account":
+      case EDepositSource.ACCOUNT:
         if (accountNumberToDeposit)
           mutateExternalDeposits({
             customerId,
@@ -95,9 +98,19 @@ export const useDeposit = () => {
         toast("Metodo de deposito no valido");
         break;
     }
+    refetchAccounts();
   };
 
-  return { accounts, errors, watch, handleSubmit, register, onSubmit };
+  return {
+    isLoading: isPending,
+    isAccountSelected,
+    accounts,
+    errors,
+    watch,
+    handleSubmit,
+    register,
+    onSubmit,
+  };
 };
 
 export default useDeposit;

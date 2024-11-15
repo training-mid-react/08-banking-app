@@ -4,20 +4,22 @@ import "./styles.scss";
 import { IState } from "@core/interfaces";
 import { FC } from "react";
 
-export const Dashboard: FC<{ state: IState; balance: number }> = ({
-  state,
-  balance,
-}) => {
+export interface IDashboardProps {
+  state: IState;
+  handleLogout: () => void;
+}
+export const Dashboard: FC<IDashboardProps> = (props) => {
+  // TODO: pasar a esto a un hook para limpiar
   const navigate = useNavigate();
+  const { state, handleLogout } = props;
 
   return (
     <div className="dashboard">
       {/* TODO: mejorar esto */}
-      <h1>
-        Bienvenido {state.loginData?.customerId ?? localStorage.getItem("name")}
-      </h1>
+      <h1>Bienvenido {state.loginData?.username}</h1>
       <h3>
-        Saldo disponible: $<span id="account-balance">{balance}</span>
+        Su saldo disponible es: $
+        <span id="account-balance">{state.balance}</span>
       </h3>
       <div>
         <button id="deposit-btn" onClick={() => navigate(ROUTE_PATH.DEPOSIT)}>
@@ -27,14 +29,14 @@ export const Dashboard: FC<{ state: IState; balance: number }> = ({
           Comprar
         </button>
         <button id="purchase-btn" onClick={() => navigate(ROUTE_PATH.ACOUNT)}>
-          Crear cuenta
+          Gestion de cuentas
         </button>
         <button id="withdraw-btn" onClick={() => navigate(ROUTE_PATH.WITHDRAW)}>
           Retirar
         </button>
       </div>
       <div>
-        <button id="logout-btn" onClick={() => localStorage.clear()}>
+        <button id="logout-btn" onClick={handleLogout}>
           Cerrar sesión
         </button>
       </div>

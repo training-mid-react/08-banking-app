@@ -13,7 +13,7 @@ export const saveLoginData = (
   payload: loginData,
 });
 
-export const resetToken = (loginData = null) => ({
+export const resetLoginData = (loginData = undefined) => ({
   type: loginActions.LOGOUT,
   payload: loginData,
 });
