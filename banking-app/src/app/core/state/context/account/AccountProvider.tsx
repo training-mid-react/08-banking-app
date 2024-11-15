@@ -31,7 +31,7 @@ export const AccountProvider = ({
         (accumulator, currentValue) => accumulator + currentValue.amount || 0,
         0
       );
-      dispatch(setGlobalBalance(balance as number));
+      dispatch(setGlobalBalance(balance));
       dispatch(setUserAccounts(data.dinBody));
       setAccounts(data?.dinBody);
     } else toast(data.dinError.detail);
@@ -46,6 +46,7 @@ export const AccountProvider = ({
 
   useEffect(() => {
     refetchAccounts();
+    return () => refetchAccounts();
   }, []);
 
   return (

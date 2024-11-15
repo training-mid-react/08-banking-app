@@ -29,35 +29,39 @@ export const useDeposit = () => {
 
   const isAccountSelected = watch("depositSource") === EDepositSource.ACCOUNT;
 
-  const { mutate: mutateBranchDeposits, isPending } = useMutation({
-    mutationFn: async (data: IUnidirectionalTransaction) =>
-      await branchDeposits(data),
-    onSuccess: (data) => {
-      if (data.dinBody) toast("Deposito realizado exitosamente");
-      else toast(data.dinError.detail);
-    },
-    onError: () => toast("Cuentas no cargadas "),
-  });
+  const { mutate: mutateBranchDeposits, isPending: isPendingBranchDeposits } =
+    useMutation({
+      mutationFn: async (data: IUnidirectionalTransaction) =>
+        await branchDeposits(data),
+      onSuccess: (data) => {
+        if (data.dinBody) toast("Deposito realizado exitosamente");
+        else toast(data.dinError.detail);
+      },
+      onError: () => toast("Cuentas no cargadas "),
+    });
 
-  const { mutate: mutateAtmDeposit } = useMutation({
-    mutationFn: async (data: IUnidirectionalTransaction) =>
-      await atmDeposit(data),
-    onSuccess: (data) => {
-      if (data.dinBody) toast("Deposito en cajero realizado exitosamente");
-      else toast(data.dinError.detail);
-    },
-    onError: () => toast("Cuentas no cargadas "),
-  });
+  const { mutate: mutateAtmDeposit, isPending: isPendingAtmDeposit } =
+    useMutation({
+      mutationFn: async (data: IUnidirectionalTransaction) =>
+        await atmDeposit(data),
+      onSuccess: (data) => {
+        if (data.dinBody) toast("Deposito en cajero realizado exitosamente");
+        else toast(data.dinError.detail);
+      },
+      onError: () => toast("Cuentas no cargadas "),
+    });
 
-  const { mutate: mutateExternalDeposits } = useMutation({
+  const {
+    mutate: mutateExternalDeposits,
+    isPending: isPendingExternalDeposits,
+  } = useMutation({
     mutationFn: async (data: IDepositToExternalAccountRequest) =>
       await externalDeposits(data),
     onSuccess: (data) => {
       if (data.dinBody) toast("Deposito externo realizado exitosamente");
       else toast(data.dinError.detail);
     },
-    onError: (error) => {
-      console.log({ error });
+    onError: () => {
       toast("Cuentas no cargadas ");
     },
   });
@@ -102,7 +106,10 @@ export const useDeposit = () => {
   };
 
   return {
-    isLoading: isPending,
+    isLoading:
+      isPendingAtmDeposit ||
+      isPendingBranchDeposits ||
+      isPendingExternalDeposits,
     isAccountSelected,
     accounts,
     errors,

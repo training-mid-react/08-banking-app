@@ -7,36 +7,54 @@ import { FC } from "react";
 export interface IDashboardProps {
   state: IState;
   handleLogout: () => void;
+  refetchAccounts: () => void;
 }
+
 export const Dashboard: FC<IDashboardProps> = (props) => {
-  // TODO: pasar a esto a un hook para limpiar
   const navigate = useNavigate();
-  const { state, handleLogout } = props;
+  const { state, handleLogout, refetchAccounts } = props;
 
   return (
     <div className="dashboard">
-      {/* TODO: mejorar esto */}
-      <h1>Bienvenido {state.loginData?.username}</h1>
-      <h3>
+      <h1 className="dashboard__title">
+        Bienvenido, {state.loginData?.username}
+      </h1>
+      <h3 className="dashboard__balance">
         Su saldo disponible es: $
-        <span id="account-balance">{state.balance}</span>
+        <span className="dashboard__balance-amount">{state.balance}</span>
+        <button onClick={() => refetchAccounts()}>Recargar</button>
       </h3>
-      <div>
-        <button id="deposit-btn" onClick={() => navigate(ROUTE_PATH.DEPOSIT)}>
+      <div className="dashboard__buttons">
+        <button
+          className="dashboard__button dashboard__button--deposit"
+          onClick={() => navigate(ROUTE_PATH.DEPOSIT)}
+        >
           Depósito
         </button>
-        <button id="purchase-btn" onClick={() => navigate(ROUTE_PATH.PURCHASE)}>
+        <button
+          className="dashboard__button dashboard__button--purchase"
+          onClick={() => navigate(ROUTE_PATH.PURCHASE)}
+        >
           Comprar
         </button>
-        <button id="purchase-btn" onClick={() => navigate(ROUTE_PATH.ACOUNT)}>
+        <button
+          className="dashboard__button dashboard__button--account"
+          onClick={() => navigate(ROUTE_PATH.ACOUNT)}
+        >
           Gestion de cuentas
         </button>
-        <button id="withdraw-btn" onClick={() => navigate(ROUTE_PATH.WITHDRAW)}>
+        <button
+          className="dashboard__button dashboard__button--withdraw"
+          onClick={() => navigate(ROUTE_PATH.WITHDRAW)}
+        >
           Retirar
         </button>
       </div>
-      <div>
-        <button id="logout-btn" onClick={handleLogout}>
+      <div className="dashboard__logout">
+        <button
+          className="dashboard__button dashboard__button--logout"
+          onClick={handleLogout}
+        >
           Cerrar sesión
         </button>
       </div>

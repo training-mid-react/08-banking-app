@@ -1,4 +1,5 @@
 import { ROUTE_PATH } from "@core/constants";
+import { useAccountContext } from "@core/state";
 import { useAppContext } from "@core/state/AppContext";
 import { resetLoginData } from "@core/state/login";
 import { Dashboard } from "@ui/components/dashboard";
@@ -8,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export const DashboardContainer = () => {
   const { state, dispatch } = useAppContext();
+  const { refetchAccounts } = useAccountContext();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -18,7 +20,11 @@ export const DashboardContainer = () => {
 
   return (
     <AppLayout>
-      <Dashboard state={state} handleLogout={handleLogout} />
+      <Dashboard
+        state={state}
+        handleLogout={handleLogout}
+        refetchAccounts={refetchAccounts}
+      />
       <Toaster />
     </AppLayout>
   );

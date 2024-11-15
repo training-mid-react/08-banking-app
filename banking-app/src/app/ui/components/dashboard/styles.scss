@@ -1,93 +1,119 @@
 .dashboard {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
+  font-family: "Arial", sans-serif;
 
-  h1 {
-    font-size: 24px;
+  &__title {
+    font-size: 28px;
+    font-weight: 600;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
-  h3 {
-    font-size: 18px;
+  &__balance {
+    font-size: 20px;
     color: #555;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 
-  & div {
+  &__balance-amount {
+    font-weight: bold;
+    color: #2d8c2f;
+  }
+
+  &__buttons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    & button {
-      margin: 10px;
+    gap: 15px;
+    margin-bottom: 30px;
+
+    & .dashboard__button {
+      padding: 12px 24px;
       font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      &--deposit {
+        background-color: #4caf50;
+        color: white;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+
+      &--purchase {
+        background-color: #2196f3;
+        color: white;
+
+        &:hover {
+          background-color: #1976d2;
+        }
+      }
+
+      &--account {
+        background-color: #ff9800;
+        color: white;
+
+        &:hover {
+          background-color: #fb8c00;
+        }
+      }
+
+      &--withdraw {
+        background-color: #f44336;
+        color: white;
+
+        &:hover {
+          background-color: #e53935;
+        }
+      }
     }
   }
-}
 
-#account-balance {
-  font-weight: bold;
-  color: #2d8c2f;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-button:focus {
-  outline: none;
-}
-
-#deposit-btn {
-  background-color: #4caf50;
-
-  &:hover {
-    background-color: #4caf4f38;
-  }
-}
-
-#purchase-btn {
-  background-color: #2196f3;
-  &:hover {
-    background-color: #2195f334;
-  }
-}
-
-#withdraw-btn {
-  background-color: #f44336;
-  &:hover {
-    background-color: #f4433665;
-  }
-}
-
-#logout-btn {
-  background-color: #ff5722;
-  color: white;
-  width: 100%;
-  max-width: 250px;
-}
-
-@media (max-width: 600px) {
-  .dashboard {
-    padding: 15px;
-  }
-
-  button {
-    font-size: 14px;
-    padding: 10px 15px;
-  }
-
-  .dashboard h1 {
-    font-size: 20px;
-  }
-
-  .dashboard h3 {
+  & .dashboard__logout {
+    margin-top: 30px;
+    padding: 12px 24px;
     font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &__button--logout {
+      background-color: #ff5722;
+      color: white;
+      width: 100%;
+      max-width: 250px;
+      padding: 15px;
+      font-size: 18px;
+
+      &:hover {
+        background-color: #e64a19;
+      }
+    }
   }
 }
