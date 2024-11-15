@@ -1,40 +1,79 @@
-import { Account, UpdateAccountBalance } from "@core/interfaces/account";
+import { Account, BankAccountCreateRequest, BankAccountGetRequest, BankAccountDeleteRequest, BankAccountCustomerGetRequest } from '@interfaces/account';
 
 export const accountActions = {
-  FETCH_ACCOUNT_BALANCE_REQUEST: 'FETCH_ACCOUNT_BALANCE_REQUEST',
-  FETCH_ACCOUNT_BALANCE_SUCCESS: 'FETCH_ACCOUNT_BALANCE_SUCCESS',
-  FETCH_ACCOUNT_BALANCE_FAILURE: 'FETCH_ACCOUNT_BALANCE_FAILURE',
-  UPDATE_ACCOUNT_BALANCE_REQUEST: 'UPDATE_ACCOUNT_BALANCE_REQUEST',
-  UPDATE_ACCOUNT_BALANCE_SUCCESS: 'UPDATE_ACCOUNT_BALANCE_SUCCESS',
-  UPDATE_ACCOUNT_BALANCE_FAILURE: 'UPDATE_ACCOUNT_BALANCE_FAILURE',
+  CREATE_BANK_ACCOUNT_REQUEST: 'CREATE_BANK_ACCOUNT_REQUEST',
+  CREATE_BANK_ACCOUNT_SUCCESS: 'CREATE_BANK_ACCOUNT_SUCCESS',
+  CREATE_BANK_ACCOUNT_FAILURE: 'CREATE_BANK_ACCOUNT_FAILURE',
+  
+  FETCH_BANK_ACCOUNT_REQUEST: 'FETCH_BANK_ACCOUNT_REQUEST',
+  FETCH_BANK_ACCOUNT_SUCCESS: 'FETCH_BANK_ACCOUNT_SUCCESS',
+  FETCH_BANK_ACCOUNT_FAILURE: 'FETCH_BANK_ACCOUNT_FAILURE',
+  
+  DELETE_BANK_ACCOUNT_REQUEST: 'DELETE_BANK_ACCOUNT_REQUEST',
+  DELETE_BANK_ACCOUNT_SUCCESS: 'DELETE_BANK_ACCOUNT_SUCCESS',
+  DELETE_BANK_ACCOUNT_FAILURE: 'DELETE_BANK_ACCOUNT_FAILURE',
+  
+  FETCH_CUSTOMER_ACCOUNTS_REQUEST: 'FETCH_CUSTOMER_ACCOUNTS_REQUEST',
+  FETCH_CUSTOMER_ACCOUNTS_SUCCESS: 'FETCH_CUSTOMER_ACCOUNTS_SUCCESS',
+  FETCH_CUSTOMER_ACCOUNTS_FAILURE: 'FETCH_CUSTOMER_ACCOUNTS_FAILURE',
 };
 
-export const fetchAccountBalanceRequest = (accountId: string) => ({
-  type: accountActions.FETCH_ACCOUNT_BALANCE_REQUEST,
-  payload: accountId,
+export const createBankAccountRequest = (payload: BankAccountCreateRequest) => ({
+  type: accountActions.CREATE_BANK_ACCOUNT_REQUEST,
+  payload,
 });
 
-export const fetchAccountBalanceSuccess = (account: Account) => ({
-  type: accountActions.FETCH_ACCOUNT_BALANCE_SUCCESS,
+export const createBankAccountSuccess = (account: Account) => ({
+  type: accountActions.CREATE_BANK_ACCOUNT_SUCCESS,
   payload: account,
 });
 
-export const fetchAccountBalanceFailure = (error: string) => ({
-  type: accountActions.FETCH_ACCOUNT_BALANCE_FAILURE,
+export const createBankAccountFailure = (error: string) => ({
+  type: accountActions.CREATE_BANK_ACCOUNT_FAILURE,
   payload: error,
 });
 
-export const updateAccountBalanceRequest = (updateData: UpdateAccountBalance) => ({
-  type: accountActions.UPDATE_ACCOUNT_BALANCE_REQUEST,
-  payload: updateData,
+export const fetchBankAccountRequest = (payload: BankAccountGetRequest) => ({
+  type: accountActions.FETCH_BANK_ACCOUNT_REQUEST,
+  payload,
 });
 
-export const updateAccountBalanceSuccess = (account: Account) => ({
-  type: accountActions.UPDATE_ACCOUNT_BALANCE_SUCCESS,
+export const fetchBankAccountSuccess = (account: Account) => ({
+  type: accountActions.FETCH_BANK_ACCOUNT_SUCCESS,
   payload: account,
 });
 
-export const updateAccountBalanceFailure = (error: string) => ({
-  type: accountActions.UPDATE_ACCOUNT_BALANCE_FAILURE,
+export const fetchBankAccountFailure = (error: string) => ({
+  type: accountActions.FETCH_BANK_ACCOUNT_FAILURE,
+  payload: error,
+});
+
+export const deleteBankAccountRequest = (payload: BankAccountDeleteRequest) => ({
+  type: accountActions.DELETE_BANK_ACCOUNT_REQUEST,
+  payload,
+});
+
+export const deleteBankAccountSuccess = (account: Account) => ({
+  type: accountActions.DELETE_BANK_ACCOUNT_SUCCESS,
+  payload: account,
+});
+
+export const deleteBankAccountFailure = (error: string) => ({
+  type: accountActions.DELETE_BANK_ACCOUNT_FAILURE,
+  payload: error,
+});
+
+export const fetchCustomerAccountsRequest = (payload: BankAccountCustomerGetRequest) => ({
+  type: accountActions.FETCH_CUSTOMER_ACCOUNTS_REQUEST,
+  payload,
+});
+
+export const fetchCustomerAccountsSuccess = (account: Account) => ({
+  type: accountActions.FETCH_CUSTOMER_ACCOUNTS_SUCCESS,
+  payload: account,
+});
+
+export const fetchCustomerAccountsFailure = (error: string) => ({
+  type: accountActions.FETCH_CUSTOMER_ACCOUNTS_FAILURE,
   payload: error,
 });

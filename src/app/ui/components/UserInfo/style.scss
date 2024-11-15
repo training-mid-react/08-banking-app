@@ -1,4 +1,5 @@
 @use '../../styles/variables' as var;
+@use '../../styles/mixins' as mix;
 
 .user-info {
   background: var.$color-light-gray2;
@@ -13,8 +14,7 @@
   align-items: center;
 
   &_content {
-    display: flex;
-    flex-direction: column;
     margin-left: 20px;
+    @include mix.flex;
   }
 }

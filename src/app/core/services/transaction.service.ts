@@ -68,7 +68,7 @@ export const withdraw = async (request: WithdrawRequest): Promise<TransactionRes
       amount: request.dinBody.amount,
     },
   };
-  return makeTransaction('/v1/private/transactions/withdraw', payload);
+  return makeTransaction('/api/v1/private/transactions/withdraw', payload);
 };
 
 export const purchaseCard = async (request: PurchaseCardRequest): Promise<TransactionResponse> => {
@@ -89,7 +89,7 @@ export const purchaseCard = async (request: PurchaseCardRequest): Promise<Transa
       purchaseType: request.dinBody.purchaseType,
     },
   };
-  return makeTransaction('/v1/private/transactions/purchase-card', payload);
+  return makeTransaction('/api/v1/private/transactions/purchase-card', payload);
 };
 
 // depositos
@@ -112,5 +112,5 @@ export const deposit = async (request: DepositRequest): Promise<TransactionRespo
       username: request.dinBody.username,
     },
   };
-  return makeTransaction('/v1/private/transactions/deposit', payload);
+  return makeTransaction('/api/v1/private/transactions/deposit', payload);
 };

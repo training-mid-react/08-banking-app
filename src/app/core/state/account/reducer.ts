@@ -2,22 +2,48 @@ import { Account } from '@interfaces/account';
 import { accountActions } from './actions';
 
 interface AccountState {
-  account: Account | null;
+  accounts: Account[];
+  selectedAccount: Account | null;
   loading: boolean;
   error: string | null;
 }
 
 export const accountInitialState: AccountState = {
-  account: null,
+  accounts: [],
+  selectedAccount: null,
   loading: false,
   error: null,
 };
 
 export const accountCases = {
-  [accountActions.FETCH_ACCOUNT_BALANCE_REQUEST]: (state: AccountState) => ({ ...state, loading: true, error: null }),
-  [accountActions.FETCH_ACCOUNT_BALANCE_SUCCESS]: (state: AccountState, payload: Account) => ({ ...state, loading: false, account: payload }),
-  [accountActions.FETCH_ACCOUNT_BALANCE_FAILURE]: (state: AccountState, payload: string) => ({ ...state, loading: false, error: payload }),
-  [accountActions.UPDATE_ACCOUNT_BALANCE_REQUEST]: (state: AccountState, payload: Partial<Account>) => ({ ...state, account: { ...state.account, ...payload } }),
-  [accountActions.UPDATE_ACCOUNT_BALANCE_SUCCESS]: (state: AccountState, payload: Account) => ({ ...state, account: payload }),
-  [accountActions.UPDATE_ACCOUNT_BALANCE_FAILURE]: (state: AccountState, payload: string) => ({ ...state, error: payload }),
+  [accountActions.CREATE_BANK_ACCOUNT_REQUEST]: (state: AccountState) => ({ ...state, loading: true }),
+  [accountActions.CREATE_BANK_ACCOUNT_SUCCESS]: (state: AccountState, payload: Account) => ({
+    ...state,
+    loading: false,
+    accounts: [...state.accounts, payload],
+  }),
+  [accountActions.CREATE_BANK_ACCOUNT_FAILURE]: (state: AccountState, payload: string) => ({ ...state, loading: false, error: payload }),
+
+  [accountActions.FETCH_BANK_ACCOUNT_REQUEST]: (state: AccountState) => ({ ...state, loading: true }),
+  [accountActions.FETCH_BANK_ACCOUNT_SUCCESS]: (state: AccountState, payload: Account) => ({
+    ...state,
+    loading: false,
+    selectedAccount: payload,
+  }),
+  [accountActions.FETCH_BANK_ACCOUNT_FAILURE]: (state: AccountState, payload: string) => ({ ...state, loading: false, error: payload }),
+  [accountActions.DELETE_BANK_ACCOUNT_REQUEST]: (state: AccountState) => ({ ...state, loading: true }),
+  [accountActions.DELETE_BANK_ACCOUNT_SUCCESS]: (state: AccountState, payload: Account) => ({
+    ...state,
+    loading: false,
+    accounts: state.accounts.filter((account) => account.id !== payload.id),
+  }),
+  [accountActions.DELETE_BANK_ACCOUNT_FAILURE]: (state: AccountState, payload: string) => ({ ...state, loading: false, error: payload }),
+
+  [accountActions.FETCH_CUSTOMER_ACCOUNTS_REQUEST]: (state: AccountState) => ({ ...state, loading: true }),
+  [accountActions.FETCH_CUSTOMER_ACCOUNTS_SUCCESS]: (state: AccountState, payload: Account) => ({
+    ...state,
+    loading: false,
+    accounts: payload,
+  }),
+  [accountActions.FETCH_CUSTOMER_ACCOUNTS_FAILURE]: (state: AccountState, payload: string) => ({ ...state, loading: false, error: payload }),
 };

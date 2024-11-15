@@ -16,6 +16,7 @@ const LoginContainer: React.FC = () => {
     password: "",
   });
   const { handleLogin } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,9 +25,15 @@ const LoginContainer: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await handleLogin(credentials);
-    navigate("/transacciones");
+    const isSuccess = await handleLogin(credentials);
+  
+    if (isSuccess) {
+      navigate("/inicio"); 
+    } else {
+      setErrorMessage("Error al iniciar sesión. Verifica tus credenciales.");
+    }
   };
+  
 
   return (
     <LoginLayout>
@@ -42,6 +49,7 @@ const LoginContainer: React.FC = () => {
       </form>
       <br />
       <Body>Si no tienes cuenta, puedes <Link to="/register" className="link">registrarte</Link></Body>
+      {errorMessage && <Body className="error-message">Error al iniciar sesión, intenta de nuevo</Body>}
     </LoginLayout>
   );
 };

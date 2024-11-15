@@ -20,6 +20,7 @@ export interface AuthCredentials {
   export interface AuthResponse {
     dinBody: {
       token: string;
+      customerId: string;
     }
   }
   

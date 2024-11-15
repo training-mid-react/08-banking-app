@@ -9,7 +9,7 @@ interface BodyProps {
 
 const Body: React.FC<BodyProps> = ({ children, className, color }) => {
   const colorClass = color === 'primary' ? 'body-primary' : 'body-secondary';
-  const combinedClassName = `${className || 'body'} ${colorClass}`;
+  const combinedClassName = className || `body' ${colorClass}`;
   
   return <p data-testid="body-component" className={combinedClassName}>{children}</p>;
 };

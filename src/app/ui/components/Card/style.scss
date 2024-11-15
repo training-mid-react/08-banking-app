@@ -1,4 +1,5 @@
 @use '../../styles/variables' as var;
+@use '../../styles/mixins' as mix;
 
 .card {
   background: var.$color-light-gray2;
@@ -8,11 +9,12 @@
   grid-template-columns: 1fr auto;
   padding: 20px;
   text-decoration: inherit;
+  width: 100%;
   transition: transform 0.3s ease;
+  align-items: flex-start;
 
   &-content {
-    display: flex;
-    flex-direction: column;
+    @include mix.flex;
   }
 
   &-title {

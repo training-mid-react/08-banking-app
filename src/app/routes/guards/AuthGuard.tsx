@@ -4,9 +4,12 @@ import { AppContext } from "../../core/state/AppContext";
 
 export const Guard = ({ children }: { children: JSX.Element }) => {
   const { state } = useContext(AppContext)!;
-  const token = state;
+  const token = state.token;
 
-  if (!token) {
+  const expiration = localStorage.getItem("tokenExpiration");
+  const isTokenExpired = expiration && new Date().getTime() >= +expiration;
+
+  if (!token || isTokenExpired) {
     return <Navigate to="/login" replace />;
   }
 

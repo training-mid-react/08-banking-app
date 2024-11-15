@@ -27,7 +27,7 @@ const RegisterContainer: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleRegister(credentials); 
-    navigate("/transacciones");
+    navigate("/inicio");
   };
 
   return (

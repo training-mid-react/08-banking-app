@@ -29,7 +29,7 @@ export const createCustomer = async (request: CustomerCreateRequest) => {
     dinBody: {},
   };
   //@ts-ignore
-  return makeCustomerRequest('/v1/public/customers/create', payload);
+  return makeCustomerRequest('/api/v1/public/customers/create', payload);
 };
 
 export const getCustomer = async (request: CustomerGetRequest) => {
@@ -47,7 +47,7 @@ export const getCustomer = async (request: CustomerGetRequest) => {
       id: request.dinBody.id,
     },
   };
-  return makeCustomerRequest('/v1/public/customers/get', payload);
+  return makeCustomerRequest('/api/v1/public/customers/get', payload);
 };
 
 export const deleteCustomer = async (request: CustomerDeleteRequest) => {
@@ -65,7 +65,7 @@ export const deleteCustomer = async (request: CustomerDeleteRequest) => {
       id: request.dinBody.id,
     },
   };
-  return makeCustomerRequest('/v1/public/customers/delete', payload);
+  return makeCustomerRequest('/api/v1/public/customers/delete', payload);
 };
 
 export const customerRequest = async (request: CustomerRequest) => {
@@ -82,5 +82,5 @@ export const customerRequest = async (request: CustomerRequest) => {
     dinBody: {},
   };
   //@ts-ignore
-  return makeCustomerRequest('/v1/public/customers', payload);
+  return makeCustomerRequest('/api/v1/public/customers', payload);
 };

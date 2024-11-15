@@ -22,6 +22,9 @@ export const authCases = {
     error: null,
   }),
   [loginActions.LOGIN_SUCCESS]: (state: AuthState, payload: AuthResponse) => {
+    const expirationTime = new Date().getTime() + 20 * 60 * 1000;
+    localStorage.setItem("token", payload.dinBody.token);
+    localStorage.setItem("tokenExpiration", expirationTime.toString());
     return {
       ...state,
       loading: false,
@@ -50,7 +53,8 @@ export const authCases = {
     };
   },
   [loginActions.LOGOUT]: (state: AuthState) => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiration");
     return {
       ...state,
       user: null,
