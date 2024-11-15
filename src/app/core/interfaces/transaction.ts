@@ -20,7 +20,7 @@ export interface PurchaseCardRequest {
   dinBody: {
     accountNumber: string;
     amount: number;
-    type: 'PHYSICAL' | 'VIRTUAL';
+    type: any;
     purchaseType: string;
   };
 }

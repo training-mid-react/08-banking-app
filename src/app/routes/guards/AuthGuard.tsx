@@ -1,19 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "../../core/state/AppContext";
 
-export const Guard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { state } = useContext();
-  const navigate = useNavigate();
+export const Guard = ({ children }: { children: JSX.Element }) => {
+  const { state } = useContext(AppContext)!;
+  const token = state;
 
-  useEffect(() => {
-    if (!state.isAuthenticated) {
-      navigate('/');
-    }
-  }, [state.isAuthenticated, navigate]);
-
-  if (state.isAuthenticated) {
-    return <>{children}</>;
+  if (!token) {
+    return <Navigate to="/login" replace />;
   }
 
-  return <div>Loading...</div>;
+  return children;
 };

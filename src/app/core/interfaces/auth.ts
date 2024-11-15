@@ -2,7 +2,15 @@ export interface AuthCredentials {
     username: string;
     password: string;
   }
-  
+
+  export interface RegisterCredentials {
+    name: string;        
+    lastname: string;   
+    username: string;    
+    password: string;    
+    roles: string[];
+  }
+
   export interface AuthToken {
     accessToken: string;
     refreshToken: string;
@@ -10,7 +18,9 @@ export interface AuthCredentials {
   }
   
   export interface AuthResponse {
-    token: AuthToken;
+    dinBody: {
+      token: string;
+    }
   }
   
   export interface AuthHeader {
@@ -27,4 +37,15 @@ export interface AuthCredentials {
       username: string;
       password: string;
     };
+  }
+
+  export interface RegisterCreateRequest {
+    dinHeader: AuthHeader;
+    dinBody: {
+      name: string;        
+      lastname: string;   
+      username: string;    
+      password: string;    
+      roles: string[];
+    }
   }

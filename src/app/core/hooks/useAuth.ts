@@ -25,9 +25,13 @@ export const useAuth = () => {
       dispatch(loginRequest(request));
       try {
         const response = await login(request);
+
         dispatch(loginSuccess(response));
+
+        localStorage.setItem('token', response.dinBody.token);
+        // esto es un chanchujo
+        localStorage.setItem('username', credentials.username);
       } catch (error: any) {
-        console.log(error);
         dispatch(loginFailure(error.message));
       }
     },
@@ -45,27 +49,41 @@ export const useAuth = () => {
           transactionTime: new Date().toISOString(),
         },
         dinBody: {
+          name: credentials.name,         
+          lastname: credentials.lastname,
           username: credentials.username,
           password: credentials.password,
+          roles: credentials.roles
         },
       };
-
+  
       dispatch(registerRequest(request));
+      
       try {
         const response = await register(request);
+  
+        if (response.error || response.statusCode >= 400) {
+          throw new Error(response.message || "Error en el registro");
+        }
+  
         dispatch(registerSuccess(response));
+
+        localStorage.setItem('token', response.dinBody.token);
+
+        // esto es un chanchujo
+        localStorage.setItem('username', credentials.username);
       } catch (error: any) {
-        console.log(error);
         dispatch(registerFailure(error.message));
       }
     },
     [dispatch]
   );
+  
 
   return {
     handleLogin,
     handleRegister,
-    state: state,
+    state,
   };
 };
 

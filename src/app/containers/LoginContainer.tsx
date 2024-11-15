@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthCredentials } from "@interfaces/auth";
 import { useAuth } from "../core/hooks/useAuth";
 import Button from "../ui/components/Button";
@@ -9,6 +10,7 @@ import Body from "../ui/components/Body";
 import { Link } from "react-router-dom";
 
 const LoginContainer: React.FC = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState<AuthCredentials>({
     username: "",
     password: "",
@@ -20,9 +22,10 @@ const LoginContainer: React.FC = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    handleLogin(credentials);
+    await handleLogin(credentials);
+    navigate("/transacciones");
   };
 
   return (

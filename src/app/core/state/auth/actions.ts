@@ -1,4 +1,4 @@
-import { AuthCredentials, AuthResponse } from '@interfaces/auth';
+import { AuthCredentials, AuthResponse, RegisterCreateRequest, RegisterCredentials } from '@interfaces/auth';
 
 export const loginActions = {
     LOGIN_REQUEST: 'LOGIN_REQUEST',
@@ -25,7 +25,7 @@ export const loginFailure = (error: string) => ({
   payload: error,
 });
 
-export const registerRequest = (credentials: AuthCredentials) => ({
+export const registerRequest = (credentials: RegisterCreateRequest) => ({
   type: loginActions.REGISTER_REQUEST,
   payload: credentials,
 });

@@ -12,6 +12,7 @@ interface InputProps {
   name?: string;
   required?: boolean;
   label?: string;
+  color?: 'primary' | 'secondary';
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,7 +26,16 @@ const Input: React.FC<InputProps> = ({
   name,
   required,
   label,
+  color
 }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === "number" && parseFloat(e.target.value) < 0) {
+      e.target.value = "";
+    } else {
+      onChange(e);
+    }
+  };
+
   return (
     <div className={`input-container ${value ? "has-value" : ""}`}>
       <input
@@ -35,12 +45,20 @@ const Input: React.FC<InputProps> = ({
         data-testid="input-component"
         type={type}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         className={className || "custom-input"}
         disabled={disabled}
       />
-      {label && <label htmlFor={id} className="input-label">{label}</label>}
+      {label && (
+        <label
+          style={{ color: color === 'primary' ? '#6e6e6e' : '#d1d1d1' }}
+          htmlFor={id}
+          className="input-label"
+        >
+          {label}
+        </label>
+      )}
     </div>
   );
 };
